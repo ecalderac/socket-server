@@ -1,4 +1,3 @@
-
 import express from 'express';
 import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io'; //1-importando modulo de socketio
@@ -40,13 +39,19 @@ export default class Server{
         //escuchando un socket desde la variable cliente, recordar que on = escucha
         this.io.on('connection', cliente => {
 
-            console.log('Cliente Conectado');
+            //Conectar cliente
+            socket.conectarCliente(cliente);
+
+            //Configurar usuario
+            socket.configurarUsuario(cliente, this.io);
 
             //Mensajes
             socket.mensaje( cliente, this.io );
 
             //Desconectar
             socket.desconectar( cliente );
+
+
 
         });
 
